@@ -32,10 +32,19 @@ document.onkeyup = data => {
     $("#container").fadeOut(500);
     document.getElementById("container").style.display = "none";
     $.post('https://esx_1injuries/closeUi');
+    $("#lista").empty();
+    ChangeColorBack();
   }
 };
 
-
+function ChangeColorBack() {
+  for (var i = 0; i < injuries.length; i++) {
+    var divs = document.getElementsByClassName(dictUI[injuries[i].Name]);
+    for (var j = 0; j < divs.length; j++) {
+      divs[j].style.fill = "black";
+    }
+  }
+}
 function ChangeColor(name) {
   var divs = document.getElementsByClassName(dictUI[name]);
   for (var i = 0; i < divs.length; i++) {
@@ -116,13 +125,13 @@ var dictUI = {
   Everything: "everything",
   SKEL_Pelvis: "belly",
   SKEL_L_Thigh: "thigh-left",
-  SKEL_L_Calf: "calve-left",
+  SKEL_L_Calf: "calf-left",
   SKEL_L_Foot: "feet-left",
   IK_L_Foot: "feet-left",
   PH_L_Foot: "feet-left",
   MH_L_Knee: "knee-left",
   SKEL_R_Thigh: "thigh-right",
-  SKEL_R_Calf: "calve-right",
+  SKEL_R_Calf: "calf-right",
   SKEL_R_Foot: "feet-right",
   IK_R_Foot: "feet-right",
   PH_R_Foot: "feet-right",

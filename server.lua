@@ -64,25 +64,10 @@ RegisterCommand("showinjuries", function(source, args, rawCommand)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
     local target = tonumber(args[1])
-
     if target ~= nil then
         print(target, _source, "if")
-        if Storage[ESX.GetPlayerFromId(target).identifier] ~= nil then
-            TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source, Storage[ESX.GetPlayerFromId(target).identifier])
-            print("Injuries: " .. json.encode(Storage[ESX.GetPlayerFromId(target).identifier]), _source)
-        else
-            print(target, _source, "else")
-            MySQL.Async.fetchAll('SELECT * FROM injuries WHERE identifier = @identifier', {
-                ['@identifier'] = ESX.GetPlayerFromId(target).identifier
-            }, function(result)
-                if result[1] ~= nil then
-                    local Injuries = json.decode(result[1].Injuries)
-                    print("Injuries: " .. json.encode(Injuries), _source)
-                    TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source,
-                        Storage[ESX.GetPlayerFromId(target).identifier])
-                end
-            end)
-        end
+        TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source, Storage[ESX.GetPlayerFromId(target).identifier])
+        print("Injuries: " .. json.encode(Storage[ESX.GetPlayerFromId(target).identifier]), _source)
     end
 end)
 
@@ -92,7 +77,7 @@ RegisterCommand('healallinjuries', function(source, args, rawCommand)
     local target = tonumber(args[1])
     if target ~= nil then
         Storage[ESX.GetPlayerFromId(target).identifier] = {}
-        TriggerClientEvent('esx_injuries:setInjuredBodyParts', target, {})
+        TriggerClientEvent('esx_injuries:healallinjuries', target)
     end
 end)
 

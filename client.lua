@@ -790,8 +790,15 @@ function getInjuries()
     return Injuries
 end
 
-RegisterNetEvent('esx_injuries:setInjuredBodyParts')
+RegisterNetEvent('esx_injuries:healallinjuries')
+AddEventHandler('esx_injuries:healallinjuries', function()
+    for _, BodyPart in pairs(BodyParts) do
+        BodyPart.Damaged = false
+        BodyPart.DamageType = nil
+    end
+end)
 
+RegisterNetEvent('esx_injuries:setInjuredBodyParts')
 AddEventHandler('esx_injuries:setInjuredBodyParts', function(Injuries)
     print("Setting injured body parts")
     for _, BodyPart in pairs(BodyParts) do
@@ -810,7 +817,6 @@ Citizen.CreateThread(function()
         local PlayerPed = PlayerPedId()
         local PlayerPosition = GetEntityCoords(PlayerPed, false)
         local PlayerHealth = GetEntityHealth(PlayerPed)
-
         if Health.Player.Health ~= PlayerHealth then
             local _, DamagedBone = GetPedLastDamageBone(PlayerPed)
             print("Damaged bone: " .. DamagedBone)
@@ -823,15 +829,7 @@ Citizen.CreateThread(function()
                             BodyPart.Damaged = true
                             table.insert(BodyPart.DamageType, weaponclass)
                             print(BodyPart.Name .. " is damaged by " .. weaponclass)
-                            -- send to server
                             TriggerServerEvent('esx_injuries:saveInjuredBodyParts', getInjuries())
-                        else
-                            if not table.contains(BodyPart.DamageType, weaponclass) then
-                                table.insert(BodyPart.DamageType, weaponclass)
-                                print(BodyPart.Name .. " is damaged by " .. weaponclass)
-                                -- send to server
-                                TriggerServerEvent('esx_injuries:saveInjuredBodyParts', getInjuries())
-                            end
                         end
                     end
                 end
@@ -852,13 +850,13 @@ end
 
 local display = false
 
-function SetDisplay(bool)
+function SetDisplay(bool, BodyParts)
     display = bool
     SetNuiFocus(bool, bool)
     SendNUIMessage({
         type = "ui",
         display = bool,
-        injuries = getInjuries()
+        injuries = BodyParts
     })
 end
 
@@ -869,7 +867,7 @@ end)
 RegisterNetEvent('esx_injuries:OpenInjuryWindow')
 AddEventHandler('esx_injuries:OpenInjuryWindow', function(BodyParts)
     print("WNDOW")
-    SetDisplay(true)
+    SetDisplay(true, BodyParts)
 end)
 
 RegisterNetEvent('esx_injuries:CloseInjuryWindow')
