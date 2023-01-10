@@ -1,6 +1,8 @@
 injuries = {};
 window.addEventListener("message", (event) => {
+  console.log("IJS "+ event.data.type)
   if (event.data.type === "ui") {
+    
     if(event.data.display == true) {
     $("#container").show();
     document.getElementById("container").style.display = "flex";
@@ -188,4 +190,12 @@ var dictUI = {
   FB_Tongue_000: "head",
   RB_Neck_1: "neck",
   IK_Root: "everything",
+};
+
+addEventListener('submit', (event) => {});
+
+onsubmit = (event) => { 
+  event.preventDefault();
+  let data = new FormData(event.target);
+  $.post('https://esx_1injuries/closeUi');
 };
