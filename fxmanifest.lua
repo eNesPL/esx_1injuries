@@ -10,6 +10,7 @@ server_scripts {
     'server.lua'
 }
 shared_script 'shared.lua'
+shared_script '@es_extended/imports.lua'
 
 ui_page 'ui/index.html'
 
@@ -17,7 +18,6 @@ ui_page 'ui/index.html'
 -- every client-side file still needs to be added to the resource packfile!
 files {
     'ui/*',
-    'ui/index.html',
-    'ui/js/*.js',
-    'ui/css/*.css'
+    'ui/js/*',
+    'ui/css/*'
 }

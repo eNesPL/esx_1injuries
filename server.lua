@@ -11,6 +11,7 @@ MySQL.ready(function()
         end)
 end)
 
+-- load for each playe
 -- on player load get injured body parts from database
 AddEventHandler('esx:playerLoaded', function(source)
     local _source = source
@@ -68,6 +69,37 @@ RegisterCommand("showinjuries", function(source, args, rawCommand)
         print(target, _source, "if")
         TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source, Storage[ESX.GetPlayerFromId(target).identifier])
         print("Injuries: " .. json.encode(Storage[ESX.GetPlayerFromId(target).identifier]), _source)
+    end
+end)
+
+RegisterCommand("opentablet", function(source, args, rawCommand)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    TriggerClientEvent('esx_injuries:OpenTablet', _source)
+end)
+
+ESX.RegisterServerCallback('esx_injuries:esxGetInjuriesForPlayer', function(source, cb, param1)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    local target = tonumber(param1)
+    if(Storage[ESX.GetPlayerFromId(target).identifier] == nil) then
+        Storage[ESX.GetPlayerFromId(target).identifier] = {}
+    end
+    local injury = Storage[ESX.GetPlayerFromId(target).identifier]
+    print("STORAGE " .. json.encode(injury))
+    cb(json.encode(injury))
+end)
+
+ESX.RegisterServerCallback("esx_injuries:esxHealAllInj",function(source, cb, param1)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    local target = tonumber(param1)
+    if target ~= nil then
+        Storage[ESX.GetPlayerFromId(target).identifier] = {}
+        TriggerClientEvent('esx_injuries:healallinjuries', target)
+        cb(true)
+    else
+        cb(false)
     end
 end)
 
