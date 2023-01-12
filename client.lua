@@ -828,7 +828,6 @@ Citizen.CreateThread(function()
                 if BodyPart.BoneID == DamagedBone then
                     local weaponclass = GetDamageType(PlayerPed)
                     if (weaponclass ~= nil) then
-                        print("Damaged body part: " .. BodyPart.Name)
                         if BodyPart.Damaged == false then
                             BodyPart.Damaged = true
                         end
@@ -892,11 +891,11 @@ RegisterNUICallback("GetInjuries", function(data, cb)
         print("Injuries: " .. Injuries)
         ret = Injuries
     end, data.playerid)
-    print("Ret: " .. json.encode(ret))
+    
     while ret == {} do
         Citizen.Wait(0)
     end
-    print("Ret: " .. json.encode(ret))
+    
     cb(ret)
     ret={}
 end)

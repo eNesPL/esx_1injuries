@@ -66,9 +66,7 @@ RegisterCommand("showinjuries", function(source, args, rawCommand)
     local xPlayer = ESX.GetPlayerFromId(_source)
     local target = tonumber(args[1])
     if target ~= nil then
-        print(target, _source, "if")
         TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source, Storage[ESX.GetPlayerFromId(target).identifier])
-        print("Injuries: " .. json.encode(Storage[ESX.GetPlayerFromId(target).identifier]), _source)
     end
 end)
 
@@ -86,7 +84,6 @@ ESX.RegisterServerCallback('esx_injuries:esxGetInjuriesForPlayer', function(sour
         Storage[ESX.GetPlayerFromId(target).identifier] = {}
     end
     local injury = Storage[ESX.GetPlayerFromId(target).identifier]
-    print("STORAGE " .. json.encode(injury))
     cb(json.encode(injury))
 end)
 
@@ -130,7 +127,6 @@ Citizen.CreateThread(function()
                     ['@identifier'] = k,
                     ['@Injuries'] = json.encode(v)
                 }, function(rowsChanged)
-                    print("Saved body parts to database: " .. json.encode(v))
                 end)
         end
         Citizen.Wait(60000)
