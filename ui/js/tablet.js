@@ -138,7 +138,7 @@ var dictUI = {
 
 const iframes = Array.from(document.getElementsByTagName('iframe'));
 for (const item of iframes) {
-  item.contentWindow.console.log = () => { /* nop */ };
+  item.contentWindow.//console.log = () => { /* nop */ };
 }
 
 function SetPanel() {
@@ -156,8 +156,8 @@ function SetPacjent() {
 }
 
 window.addEventListener("message", (event) => {
-  console.log(event.data.type)
-  console.log(event.data.display)
+  //console.log(event.data.type)
+  //console.log(event.data.display)
   if (event.data.type === "ui") {
     if (event.data.display == true) {
       $("#showpanel").show();
@@ -202,8 +202,8 @@ function populateInjuries(injuries) {
     Injuries = injuries;
 }
 
-  console.log(Injuries)
-  console.log(Injuries.length)
+  //console.log(Injuries)
+  //console.log(Injuries.length)
   //for each injury in the injuries table, create a new div with the injury name and damage type
   for (var i = 0; i < Injuries.length; i++) {
     $("#lista").append(
@@ -242,7 +242,7 @@ onsubmit = (event) => {
   $("#lista").empty();
   ChangeColorBack();
   var id = document.getElementById("id").value;
-  console.log(id);
+  //console.log(id);
   if(isNumber(id)){
   fetch(`https://esx_1injuries/GetInjuries`, {
     method: 'POST',
@@ -265,18 +265,18 @@ else{
 function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); }
 
 function handleHeal(resp){
-    console.log("RESP? " + resp);
+    //console.log("RESP? " + resp);
     resp = JSON.parse(resp);
-    console.log(resp.length)
+    //console.log(resp.length)
     if(resp == true){
     $("#lista").empty();
     ChangeColorBack();
     if (resp.length > 0 && resp != null ) {
-      console.log("jest")
+      //console.log("jest")
       populateInjuries(resp);
     }
     else {
-      console.log("nie ma")
+      //console.log("nie ma")
       $("#lista").append(
         "<div class='injury' id='injury'>Brak obrażeń</div>"
       );
@@ -291,17 +291,17 @@ function handleHeal(resp){
 }
 
 function handleResp(resp){
-    console.log("RESP? " + resp);
+    //console.log("RESP? " + resp);
     resp = JSON.parse(resp);
-    console.log(resp.length)
+    //console.log(resp.length)
     $("#lista").empty();
     ChangeColorBack();
     if (resp.length > 0 && resp != null ) {
-      console.log("jest")
+      //console.log("jest")
       populateInjuries(resp);
     }
     else {
-      console.log("nie ma")
+      //console.log("nie ma")
       $("#lista").append(
         "<div class='injury' id='injury'>Brak obrażeń</div>"
       );

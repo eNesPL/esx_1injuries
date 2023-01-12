@@ -1,6 +1,6 @@
 injuries = {};
 window.addEventListener("message", (event) => {
-  console.log("IJS "+ event.data.type)
+  //console.log("IJS "+ event.data.type)
   if (event.data.type === "ui") {
     
     if(event.data.display == true) {
@@ -8,7 +8,7 @@ window.addEventListener("message", (event) => {
     document.getElementById("container").style.display = "flex";
     injuries = event.data.injuries;
     //for each injury in the injuries table, create a new div with the injury name and damage type
-    console.log(event.data);
+    //console.log(event.data);
     for (var i = 0; i < injuries.length; i++) {
       $("#lista").append(
         "<div class='injury' id='injury" +
