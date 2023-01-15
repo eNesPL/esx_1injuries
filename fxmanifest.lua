@@ -11,13 +11,3 @@ server_scripts {
 }
 shared_script 'shared.lua'
 shared_script '@es_extended/imports.lua'
-
-ui_page 'ui/index.html'
-
-
--- every client-side file still needs to be added to the resource packfile!
-files {
-    'ui/*',
-    'ui/js/*',
-    'ui/css/*'
-}

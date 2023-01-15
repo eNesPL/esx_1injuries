@@ -61,20 +61,6 @@ AddEventHandler('esx_injuries:saveInjuredBodyParts', function(bodyParts)
     Storage[xPlayer.identifier] = bodyParts
 end)
 
-RegisterCommand("showinjuries", function(source, args, rawCommand)
-    local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
-    local target = tonumber(args[1])
-    if target ~= nil then
-        TriggerClientEvent('esx_injuries:OpenInjuryWindow', _source, Storage[ESX.GetPlayerFromId(target).identifier])
-    end
-end)
-
-RegisterCommand("opentablet", function(source, args, rawCommand)
-    local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
-    TriggerClientEvent('esx_injuries:OpenTablet', _source)
-end)
 
 ESX.RegisterServerCallback('esx_injuries:esxGetInjuriesForPlayer', function(source, cb, param1)
     local _source = source
@@ -110,13 +96,6 @@ RegisterCommand('healallinjuries', function(source, args, rawCommand)
     end
 end)
 
-RegisterCommand('closeui', function(source, args, rawCommand)
-    local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
-    TriggerClientEvent('esx_injuries:CloseInjuryWindow', _source)
-end)
-
-
 Citizen.CreateThread(function()
     while true do
         print("Saving body parts to database")
@@ -129,7 +108,7 @@ Citizen.CreateThread(function()
                 }, function(rowsChanged)
                 end)
         end
-        Citizen.Wait(60000)
+        Citizen.Wait(60000 * 1)
     end
 end)
 
