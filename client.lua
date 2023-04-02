@@ -823,16 +823,15 @@ Citizen.CreateThread(function()
         local PlayerHealth = GetEntityHealth(PlayerPed)
         if Health.Player.Health ~= PlayerHealth then
             local _, DamagedBone = GetPedLastDamageBone(PlayerPed)
-            print("Damaged bone: " .. DamagedBone)
             for _, BodyPart in pairs(BodyParts) do
                 if BodyPart.BoneID == DamagedBone then
+                    print(GetDamageType(PlayerPed))
                     local weaponclass = GetDamageType(PlayerPed)
                     if (weaponclass ~= nil) then
                         if BodyPart.Damaged == false then
                             BodyPart.Damaged = true
                         end
                         table.insert(BodyPart.DamageType, weaponclass)
-                        print(BodyPart.Name .. " is damaged by " .. weaponclass)
                         TriggerServerEvent('esx_injuries:saveInjuredBodyParts', getInjuries())
                     end
                 end

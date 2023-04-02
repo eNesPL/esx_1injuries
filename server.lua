@@ -5,7 +5,7 @@ Storage = {}
 -- Create in database if not exists to store injured body parts for each player 
 MySQL.ready(function()
     MySQL.Async.execute(
-        'CREATE TABLE if not exists `injuries` (        `identifier` varchar(46) NOT NULL,        `Injuries` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Injuries`))      )',
+        'CREATE TABLE if not exists `injuries` (        `identifier` varchar(46) NOT NULL PRIMARY KEY,        `injuries` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Injuries`))      )',
         {}, function(rowsChanged)
             print("Created table 'injuries' if not exists")
         end)
