@@ -825,7 +825,6 @@ Citizen.CreateThread(function()
             local _, DamagedBone = GetPedLastDamageBone(PlayerPed)
             for _, BodyPart in pairs(BodyParts) do
                 if BodyPart.BoneID == DamagedBone then
-                    print(GetDamageType(PlayerPed))
                     local weaponclass = GetDamageType(PlayerPed)
                     if (weaponclass ~= nil) then
                         if BodyPart.Damaged == false then
